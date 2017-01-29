@@ -19,36 +19,32 @@ import org.apache.lucene.search.Query
 import org.apache.lucene.search.Sort
 import org.apache.lucene.search.SortField
 import org.grails.datastore.mapping.reflect.ClassPropertyFetcher
-import org.hibernate.Criteria;
 import org.hibernate.Session
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery
 import org.hibernate.search.FullTextSession
 import org.hibernate.search.MassIndexer
 import org.hibernate.search.Search
-import org.hibernate.search.exception.EmptyQueryException;
+import org.hibernate.search.errors.EmptyQueryException
 import org.hibernate.search.query.dsl.FieldCustomization
-import org.hibernate.search.query.dsl.QueryBuilder
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.hibernate.search.query.dsl.FuzzyContext
-
-import grails.plugins.*;
+import org.hibernate.search.query.dsl.QueryBuilder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class HibernateSearchQueryBuilder {
 	
 	private final static Logger log = LoggerFactory.getLogger(this)
 
-    private static final def SORT_TYPES = [( Integer ): SortField.Type.INT,
-            ( Double ): SortField.Type.DOUBLE,
-            ( Float ): SortField.Type.FLOAT,
-            ( String ): SortField.Type.STRING_VAL,
-            ( Long ): SortField.Type.LONG,
-            ( BigDecimal ): SortField.Type.DOUBLE,
+    private static final def SORT_TYPES = [( Integer ): SortField.INT,
+            ( Double ): SortField.DOUBLE,
+            ( Float ): SortField.FLOAT,
+            ( String ): SortField.STRING_VAL,
+            ( Long ): SortField.LONG,
+            ( BigDecimal ): SortField.DOUBLE,
 
             // see Emmanuel Bernard's comment
             // https://hibernate.onjira.com/browse/HSEARCH-97
-            ( Date ): SortField.Type.STRING]
+            ( Date ): SortField.STRING]
 
     private static interface Component {
         Query createQuery( )

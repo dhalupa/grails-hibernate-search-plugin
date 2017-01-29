@@ -203,7 +203,7 @@ public class HibernateSearchCapableSessionFactoryBean extends HibernateMappingCo
 				}
 			}
 
-			configuration.getProperties().put(org.hibernate.search.cfg.Environment.MODEL_MAPPING, searchMapping);
+			configuration.getProperties().put("hibernate.search.model_mapping", searchMapping);
 
 		} catch (Exception e) {
 			log.error("Error while indexing entities", e);
